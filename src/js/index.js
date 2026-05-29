@@ -117,9 +117,10 @@ import './components/bs-history.js';
         throw new Error('No barcode detected');
       }
 
-      createResult(cameraResultsEl, barcodeValue);
-
-      if (settings?.addToHistory) {
+       createResult(cameraResultsEl, barcodeValue);
+       await sendWebhook(barcodeValue, settings?.webhookUrl);
+ 
+       if (settings?.addToHistory) {
         bsHistoryEl?.add(barcodeValue);
       }
 
@@ -146,6 +147,31 @@ import './components/bs-history.js';
   }
 
   /**
+   * Sends a webhook request with the scanned barcode value.
+   *
+   * @param {string} value - The scanned barcode value.
+   * @param {string} [webhookUrl] - The webhook URL.
+   * @returns {Promise<void>}
+   */
+  async function sendWebhook(value, webhookUrl) {
+    if (!webhookUrl) {
+      return;
+    }
+
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ barcode: value }),
+      });
+    } catch (err) {
+      log.error(`Failed to send webhook to ${webhookUrl}:`, err);
+    }
+  }
+
+  /**
    * Handles the click event on the scan button.
    * It is responsible for clearing previous results and starting the scan process again.
    */
@@ -156,6 +182,7 @@ import './components/bs-history.js';
     // hideResult(cameraPanel);
     scan();
   }
+
 
   /**
    * Handles the tab show event.
@@ -223,9 +250,10 @@ import './components/bs-history.js';
             throw new Error('No barcode detected');
           }
 
-          createResult(fileResultsEl, barcodeValue);
-
-          if (settings?.addToHistory) {
+           createResult(fileResultsEl, barcodeValue);
+           await sendWebhook(barcodeValue, settings?.webhookUrl);
+ 
+           if (settings?.addToHistory) {
             bsHistoryEl?.add(barcodeValue);
           }
 
@@ -408,9 +436,10 @@ import './components/bs-history.js';
     const generalSettings = formData.getAll('general-settings');
     const formatsSettings = formData.getAll('formats-settings');
 
-    generalSettings.forEach(value => (settings[value] = true));
-    settings.formats = formatsSettings;
-    setSettings(settings);
+     generalSettings.forEach(value => (settings[value] = true));
+     settings.formats = formatsSettings;
+     settings.webhookUrl = formData.get('webhookUrl');
+     setSettings(settings);
 
     if (evt.target.name === 'formats-settings') {
       barcodeReader = await BarcodeReader.create(formatsSettings);

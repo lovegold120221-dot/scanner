@@ -225,8 +225,17 @@
             <li><label><input type="checkbox" name="general-settings" value="vibrate">Vibrate (Android)</label></li>
           </ul>
         </fieldset>
+      </fieldset>
 
-        <fieldset name="bs-formats">
+      <fieldset>
+        <legend>Webhook</legend>
+        <div class="form-group">
+          <label for="webhookUrl" class="form-label">Webhook URL</label>
+          <input type="url" id="webhookUrl" name="webhookUrl" class="form-control" placeholder="https://example.com/webhook">
+        </div>
+      </fieldset>
+    </form>
+...
           <legend>
             Supported formats
             <br>

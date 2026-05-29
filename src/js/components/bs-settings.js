@@ -28,10 +28,15 @@ class BSSettings extends HTMLElement {
     const [, settings] = await getSettings();
     this.#settings = settings ?? {};
 
-    this.#formEl?.querySelectorAll(`[name="general-settings"]`).forEach(input => {
-      input.checked = this.#settings[input.value];
-    });
-  }
+     this.#formEl?.querySelectorAll(`[name="general-settings"]`).forEach(input => {
+       input.checked = this.#settings[input.value];
+     });
+ 
+     const webhookUrlInput = this.#formEl?.querySelector('[name="webhookUrl"]');
+     if (webhookUrlInput) {
+       webhookUrlInput.value = this.#settings.webhookUrl ?? '';
+     }
+   }
 
   #renderFormats() {
     if (!this.#formatsWrapperEl) {
