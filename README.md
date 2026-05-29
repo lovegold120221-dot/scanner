@@ -1,13 +1,13 @@
-# Barcode/QR code Scanner
+# Eburon AI Scanner
 
-A Progressive Web Application (PWA) that scans barcodes of various formats, using the [Barcode Detection API](https://developer.mozilla.org/docs/Web/API/Barcode_Detection_API).
+An intelligent Progressive Web Application (PWA) by Eburon AI that scans barcodes of various formats, using the [Barcode Detection API](https://developer.mozilla.org/docs/Web/API/Barcode_Detection_API).
 
 > [!NOTE]
 > The Barcode Detection API is part of the [Fugu](https://fugu-tracker.web.app/) project. Currently it is supported only on Chromium browsers in MacOS and Android. For non-supporting browsers, a [polyfill](https://github.com/Sec-ant/barcode-detector) is used.
 
 ## Live demo
 
-👉 [Barcode/QR code Scanner](https://georapbox.github.io/barcode-scanner/)
+👉 [Eburon AI Scanner](https://georapbox.github.io/barcode-scanner/)
 
 ## Features
 
@@ -19,6 +19,7 @@ Some of the key features of the application include:
 - Share detected barcode via Web Share API (mobile)
 - Offer option to open detected barcode in a new tab if it is a URL
 - Offer to save detected barcodes to history (IndexedDB)
+- **Webhook integration to export scanned data**
 
 ## Screenshots
 
@@ -43,7 +44,7 @@ Once the correct Node version is active, the bundled npm version will be used au
 Clone the repository to your local machine:
 
 ```sh
-git clone git@github.com:georapbox/barcode-scanner.git
+git clone https://github.com/lovegold120221-dot/scanner.git
 ```
 
 Navigate to the project's directory and install the dependencies:
