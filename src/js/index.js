@@ -451,6 +451,7 @@ import './components/bs-history.js';
      generalSettings.forEach(value => (settings[value] = true));
      settings.formats = formatsSettings;
      settings.webhookUrl = formData.get('webhookUrl');
+     settings.aiLanguage = formData.get('aiLanguage');
      setSettings(settings);
 
     if (evt.target.name === 'formats-settings') {
