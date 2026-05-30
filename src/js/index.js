@@ -70,7 +70,19 @@ import './components/bs-history.js';
   }
 
   const supportedBarcodeFormats = await BarcodeReader.getSupportedFormats();
-  const [, settings] = await getSettings();
+  let [, settings] = await getSettings();
+
+  // On first load, save defaults with all formats checked
+  if (!settings) {
+    settings = {
+      addToHistory: true,
+      beep: true,
+      continueScanning: true,
+      formats: supportedBarcodeFormats,
+    };
+    await setSettings(settings);
+  }
+
   const intitialFormats = settings?.formats || supportedBarcodeFormats;
   let barcodeReader = await BarcodeReader.create(intitialFormats);
 

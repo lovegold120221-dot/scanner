@@ -48,6 +48,7 @@
     "@eslint/js": "~9.39.2",
     "@parcel/packager-raw-url": "~2.16.3",
     "@parcel/transformer-webmanifest": "~2.16.3",
+    "@types/node": "~25.9.1",
     "eslint": "~9.39.2",
     "gh-pages": "~6.3.0",
     "globals": "~16.5.0",
@@ -67,6 +68,7 @@
     "@georapbox/modal-element": "~1.11.1",
     "@georapbox/resize-observer-element": "~2.0.1",
     "@georapbox/web-share-element": "~3.1.1",
+    "@google/genai": "~2.7.0",
     "barcode-detector": "~3.0.8",
     "idb-keyval": "~6.2.2"
   },
