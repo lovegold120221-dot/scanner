@@ -1,5 +1,11 @@
 ## TASK-20260530-130000: Wire AI action after barcode scanning
 
+> **Note:** This task was completed BEFORE the sticky-header task below. Both are complete.
+
+---
+
+## TASK-20260530-131500: Sticky header with Eburon logo
+
 ### START RECORD
 - STATUS: COMPLETED
 - Start time: 2026-05-30T13:00:00Z
@@ -56,3 +62,38 @@ The scanner frontend and Gemini Live AI server were built as two disconnected pi
 
 ### NEXT STEP
 Get a fresh Gemini API key, then run `npm run dev` and scan a barcode. You'll hear product info spoken aloud.
+
+---
+
+## TASK-20260530-131500: Sticky header with Eburon logo
+
+### START RECORD
+- STATUS: COMPLETED
+- Start time: 2026-05-30T13:15:00Z
+- User request: Create sticky header, use Eburon icon as logo (right side, 45px rounded), remove scanner SVG barcode logo, keep "Eburon AI Reader" as title
+- Preservation constraints: No changes to scan functionality, settings, history, or any other feature
+- Files/directories to inspect: src/index.html, src/css/main.css
+- Success criteria: Header is sticky, Eburon logo shows on the right at 45px rounded, scanner SVG logo removed, title remains
+
+### CHANGES MADE
+
+#### 1. `src/index.html` — Restructured header
+- Removed the massive barcode scanner SVG logo (was 25 path elements)
+- Moved `global-actions` (History + Settings buttons) **inside** the header
+- Added Eburon logo image on the right: `<img src="https://eburon.ai/icon-eburon.svg" class="header-logo">`
+- Layout: `[Title] ................................ [History] [Settings] [Logo]`
+
+#### 2. `src/css/main.css` — Sticky header styles
+- `.site-header` → `position: sticky; top: 0; z-index: 100` with `justify-content: space-between`
+- Added `background: var(--background-body)` and `border-bottom` so content scrolls behind cleanly
+- `.header-logo` → `width: 45px; height: 45px; border-radius: 50%` with `object-fit: contain`
+- `.header-end` → flex container for actions + logo, `flex-shrink: 0`
+- `.global-actions` → changed from `position: absolute` to inline flex (sits inside the header naturally)
+- `body` → margin top changed from `1.25rem` to `0` so header sticks at the very top
+- Removed old media query that added `margin: 3rem 0` on tall screens → replaced with `padding-block: 1rem`
+
+### VALIDATION
+- ✅ `parcel build` succeeds cleanly
+- ✅ No scan functionality, settings, history, or other features changed
+- ✅ All CSS variables preserved
+- ✅ The header h1 remains responsive (ellipsis on overflow)
