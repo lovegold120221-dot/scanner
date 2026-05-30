@@ -169,8 +169,8 @@ function createWavHeader(dataLength: number, options: WavConversionOptions) {
   return buffer;
 }
 
-async function runGeminiLive(barcode: string) {
-  console.log('[Gemini] Connecting for barcode: ' + barcode);
+async function runGeminiLive(barcode: string, language: string = 'en') {
+  console.log('[Gemini] Connecting for barcode: ' + barcode + ' language: ' + language);
 
   // Clear audio parts from previous run
   audioParts.length = 0;
@@ -208,7 +208,7 @@ async function runGeminiLive(barcode: string) {
     tools,
     systemInstruction: {
       parts: [{
-        text: 'Use the users language natively. and instantly use that scanner output code search the internet or use grounding , https://www.google.com/search?q=48042772 When you recieve a scanner output, instantly run a google search and formulate a brief information details about the product, and read aloud to the user in high human nuance, sample recieve text prompt is = product scanner output 48042772 responce with the information you gathered from google search like = Marlboro Ice Blast Mega FlipTop 20\'s, and say something like trivia or knowledge about the product but not so much 3 to 4 sentences is enaugh not unless the user ask for more detailed.',
+        text: 'CRITICAL: You MUST respond ONLY in language code: ' + language + '. Speak natively in that language for your entire response. When you receive a scanner output, instantly run a google search and formulate a brief information details about the product, and read aloud to the user in high human nuance in the language ' + language + '. Include a short piece of trivia or knowledge about the product. Keep it concise, about 3 to 4 sentences, unless the user asks for more detail. Example: if you receive "product scanner output 48042772", search and respond with something like the product name and a fun fact about it.',
       }]
     },
   };
@@ -275,13 +275,13 @@ const server = http.createServer((req, res) => {
       try {
         const data = JSON.parse(body);
         if (data.barcode) {
-          console.log('[Webhook] Received barcode: ' + data.barcode);
+          console.log('[Webhook] Received barcode: ' + data.barcode + ' lang: ' + (data.language || 'en'));
 
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ status: 'ok', barcode: data.barcode }));
 
           // Fire Gemini Live in background
-          runGeminiLive(data.barcode).catch(err => {
+          runGeminiLive(data.barcode, data.language || 'en').catch(err => {
             console.error('[Gemini] Failed:', err);
           });
 
