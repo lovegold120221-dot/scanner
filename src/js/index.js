@@ -163,9 +163,10 @@ import './components/bs-history.js';
    *
    * @param {string} value - The scanned barcode value.
    * @param {string} [webhookUrl] - The webhook URL.
+   * @param {string} [aiLanguage] - The AI response language code.
    * @returns {Promise<void>}
    */
-  async function sendWebhook(value, webhookUrl) {
+  async function sendWebhook(value, webhookUrl, aiLanguage) {
     if (!webhookUrl) {
       return;
     }
@@ -176,7 +177,7 @@ import './components/bs-history.js';
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ barcode: value }),
+        body: JSON.stringify({ barcode: value, language: aiLanguage || 'en' }),
       });
     } catch (err) {
       log.error(`Failed to send webhook to ${webhookUrl}:`, err);
