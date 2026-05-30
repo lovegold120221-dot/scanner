@@ -1,7 +1,7 @@
 {
-  "short_name": "Barcode Scanner",
-  "name": "Barcode Scanner",
-  "description": "A Progressive Web Application (PWA) that scans barcodes of various formats, using the Barcode Detection API.",
+  "short_name": "Eburon AI Reader",
+  "name": "Eburon AI Reader",
+  "description": "Scan any barcode and get instant AI-powered product information read aloud in your language.",
   "categories": ["barcode", "scanner", "utilities"],
   "screenshots": [
     {

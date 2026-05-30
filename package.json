@@ -1,7 +1,7 @@
 {
-  "name": "barcode-scanner",
+  "name": "eburon-ai-reader",
   "version": "1.0.0",
-  "description": "A Progressive Web Application (PWA) that scans barcodes of various formats, using the Barcode Detection API.",
+  "description": "Eburon AI Reader — Scan any barcode and get instant AI-powered product information read aloud in your language.",
   "source": "src/index.html",
   "scripts": {
     "lint": "eslint src/js/**",
