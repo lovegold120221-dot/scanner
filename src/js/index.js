@@ -130,7 +130,7 @@ import './components/bs-history.js';
       }
 
        createResult(cameraResultsEl, barcodeValue);
-       await sendWebhook(barcodeValue, settings?.webhookUrl);
+       await sendWebhook(barcodeValue, settings?.webhookUrl, settings?.aiLanguage);
  
        if (settings?.addToHistory) {
         bsHistoryEl?.add(barcodeValue);
@@ -264,7 +264,7 @@ import './components/bs-history.js';
           }
 
            createResult(fileResultsEl, barcodeValue);
-           await sendWebhook(barcodeValue, settings?.webhookUrl);
+           await sendWebhook(barcodeValue, settings?.webhookUrl, settings?.aiLanguage);
  
            if (settings?.addToHistory) {
             bsHistoryEl?.add(barcodeValue);
