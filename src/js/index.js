@@ -72,6 +72,8 @@ import './components/bs-history.js';
   const supportedBarcodeFormats = await BarcodeReader.getSupportedFormats();
   let [, settings] = await getSettings();
 
+  const DEFAULT_WEBHOOK_URL = 'http://localhost:3000';
+
   // On first load, save defaults with all formats checked
   if (!settings) {
     settings = {
@@ -79,7 +81,13 @@ import './components/bs-history.js';
       beep: true,
       continueScanning: true,
       formats: supportedBarcodeFormats,
+      webhookUrl: DEFAULT_WEBHOOK_URL,
+      aiLanguage: 'en',
     };
+    await setSettings(settings);
+  } else if (!settings.webhookUrl) {
+    // Auto-configure webhook URL so scan results flow to the AI server
+    settings.webhookUrl = DEFAULT_WEBHOOK_URL;
     await setSettings(settings);
   }
 

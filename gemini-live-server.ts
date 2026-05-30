@@ -1,6 +1,8 @@
 // To run this code you need to install the following dependencies:
 // npm install @google/genai
 // npm install -D @types/node
+import dotenv from 'dotenv';
+dotenv.config({ path: '.env.local' });
 import {
   GoogleGenAI,
   LiveServerMessage,
