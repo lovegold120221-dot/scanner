@@ -36,6 +36,11 @@ class BSSettings extends HTMLElement {
      if (webhookUrlInput) {
        webhookUrlInput.value = this.#settings.webhookUrl ?? '';
      }
+
+     const aiLanguageSelect = this.#formEl?.querySelector('[name="aiLanguage"]');
+     if (aiLanguageSelect && this.#settings.aiLanguage) {
+       aiLanguageSelect.value = this.#settings.aiLanguage;
+     }
    }
 
   #renderFormats() {
